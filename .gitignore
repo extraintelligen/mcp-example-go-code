@@ -2,3 +2,5 @@ todo.txt
 venv
 test_my*
 my*
+
+__pycache__
