@@ -2,6 +2,8 @@
 
 a simple MCP server demo code for running go code in MCP way 
 
+the go code is passed to the MCP server, which then executes it and returns the result.
+
 ## prerequisites
 
 make sure you already have the following tools installed:

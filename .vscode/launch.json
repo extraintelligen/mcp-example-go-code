@@ -3,7 +3,7 @@
     "configurations": [
         {
             "name": "Python: Run Unittest (Active File)",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
             "module": "unittest",
             "args": ["${relativeFile}"],
