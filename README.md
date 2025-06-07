@@ -10,8 +10,7 @@ make sure you already have the following tools installed:
 - [go](https://golang.org/doc/install/source)
 - [python](https://www.python.org/downloads/)
     
-
-## get started
+## setup
 
 ```bash
 
@@ -28,16 +27,77 @@ git clone github.com:extraintelligen/mcp-example-go-code.git
 cd mcp-example-go-code
 
 # 3. create a virtual environment
-python3 -m venv venv
+python3 -m venv .venv
+# or install uv first and use `uv venv` to create a virtual environment 
 
 # 4. activate the virtual environment
-source venv/bin/activate
+source .venv/bin/activate
 
 # 5. install uv for dependencies management
 pip install uv
+# or install directly
+curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # 6. install the dependencies
-uv install
+uv pip sync requirements.txt
+```
+
+## try with unittest
+
+```bash     
+# run the unittest 
+python -m unittest tests/test_go_code_run.py
+# or use uv to run the unittest
+uv run -m unittest tests/test_go_code_run.py
+```
+
+## debug with MCP inspector
+
+```bash
+# use npx to run the MCP inspector, or try other ways to run MCP inspector
+# verify that npx is installed
+```bash
+npx --version
+
+# steps to install npx
+# use nvm to install npx 
+# refer to https://github.com/nvm-sh/nvm to install nvm
+# use lts version
+nvm use --lts
+
+# run the MCP inspector
+npx @modelcontextprotocol/inspector
+# the inspector will start at localhost:6274 by default
+
+# start the MCP server
+python go_code_server.py --port 5000
+# the port parameter is optional, default is 8000
 
 ```
+
+open the browser and go to http://localhost:6274,
+you should see the MCP inspector UI
+choose tranport type as "SSE"
+and enter the server URL as "http://localhost:6274/go".
+
+Click "Connect"
+click the "Tools" tab, then click "list tools" button, you should see the list of tools
+choose the "run_go_code" tool, fill in the code to run, for example:
+
+```go
+package main
+import "fmt"
+
+func main() {
+    fmt.Println("Hello, World!")
+}
+```
+and click "Run Tools"
+you will see the result 
+
+![MCP Inspector showing Go code execution result](docs/mcp-inspector.png "MCP Inspector Demo")
+
+
+
+
 

@@ -2,6 +2,7 @@ import subprocess
 import os
 import tempfile
 import shutil
+import argparse
 from fastmcp.server.server import FastMCP
 
 
@@ -11,6 +12,10 @@ class GoCodeRunServer:
     def __init__(self, name: str = "go-code-run-server"):
         self.server = FastMCP(name)
         self._setup_tools()
+    
+    def getServer(self):
+        """Get the FastMCP server instance."""
+        return self.server
     
     def _setup_tools(self):
         """Register the run_go_code tool with the server."""
@@ -98,3 +103,13 @@ class GoCodeRunServer:
         finally:
             # Clean up temporary directory
             shutil.rmtree(temp_dir, ignore_errors=True)
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="Go Code Run MCP Server")
+    parser.add_argument("--port", type=int, default=8000, help="Port to run the server on")
+    args = parser.parse_args()
+
+    server = GoCodeRunServer()
+    print(f"start running go code server on port {args.port} with SSE mode")
+    server.getServer().run(transport="sse", host= "127.0.0.1", port=args.port, path = "/go")  # Use sse=True for Server-Sent Events mode
+    print("Server stopped.")
