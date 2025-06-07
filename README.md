@@ -1,5 +1,8 @@
 # mcp-example-go-code
 
+**this is just a demo code for running Go code in MCP (Model Context Protocol) way.
+and it has the risk of running arbitrary code, so please use it with caution.**
+
 a simple MCP server demo code for running go code in MCP way 
 
 the go code is passed to the MCP server, which then executes it and returns the result.
@@ -70,15 +73,16 @@ npx @modelcontextprotocol/inspector
 # the inspector will start at localhost:6274 by default
 
 # start the MCP server
-python go_code_server.py --port 5000
+python goCodeMcpServer/go_mcp_server.py --port 5000
 # the port parameter is optional, default is 8000
 
 ```
 
 open the browser and go to http://localhost:6274,
-you should see the MCP inspector UI
+you will see the MCP inspector UI running at port 6274.
+
 choose tranport type as "SSE"
-and enter the server URL as "http://localhost:6274/go".
+and enter the MCP server URL as "http://localhost:5000/go (or any port and path you choose)".
 
 Click "Connect"
 click the "Tools" tab, then click "list tools" button, you should see the list of tools
